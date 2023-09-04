@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Forgot Password-RED</title>
+{% endblock %}
+{% block body_block %}
+<center>
+    <h1 style="color: rgb(240,239,240);">Reset Password</h1>
+    <form action="" method="POST" style="color: aliceblue;">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username">
+        <label for="newpass">New Password</label>
+        <input type="password" name="pass1" id="newpass">
+        <br><br>
+        <label for="Cnew">Confirm password</label>
+        <input type="password" name="pass2" id="cnew">
+        <br><br>
+        <input type="submit" value="Reset">
+
+    </form>
+</center>
+{% endblock %}

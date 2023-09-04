@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>RED-HOME</title>
+{% endblock %}
+{% block style %}
+<style>
+    h1{
+        font-size: 3em;
+        font-family:sans-serif;
+        color: rgb(190,47,6);
+        text-shadow: 2px 2px 5px rgb(240,239,240);
+    }
+    h1 span {
+            position: relative;
+            display: inline-block;
+            color: rgb(240,239,240);
+            height: 1.25em;
+            vertical-align: bottom;
+            overflow: hidden;
+    }
+    
+    h1 span span {
+        display: block;
+        animation: animatewords 5s infinite ease;
+        }
+    
+    
+        .carousel {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d; 
+            animation: rotate360 60s infinite forwards linear;
+          }
+          .carousel__face { 
+            position: absolute;
+            width: 300px;
+            height: 187px;
+            top: 20px;
+            left: 10px;
+            right: 10px;
+            background-size: cover;
+            box-shadow:inset 0 0 0 2000px rgba(0,0,0,0.5);
+            display: flex;
+          }
+          
+          span {
+            margin: auto;
+            font-size: 2rem;
+          }
+          
+          
+          .carousel__face:nth-child(1) {
+            background-image: url("https://images.pexels.com/photos/1141853/pexels-photo-1141853.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+            transform: rotateY(  0deg) translateZ(430px); }
+          .carousel__face:nth-child(2) { 
+            background-image: url("https://images.pexels.com/photos/1258865/pexels-photo-1258865.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+              transform: rotateY( 40deg) translateZ(430px); }
+          .carousel__face:nth-child(3) {
+            background-image: url("https://images.pexels.com/photos/808466/pexels-photo-808466.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+            transform: rotateY( 80deg) translateZ(430px); }
+          .carousel__face:nth-child(4) {
+            background-image: url("https://images.pexels.com/photos/1394841/pexels-photo-1394841.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+            transform: rotateY(120deg) translateZ(430px); }
+          .carousel__face:nth-child(5) { 
+            background-image: url("https://images.pexels.com/photos/969679/pexels-photo-969679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+           transform: rotateY(160deg) translateZ(430px); }
+          .carousel__face:nth-child(6) { 
+            background-image: url("https://images.pexels.com/photos/1834400/pexels-photo-1834400.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+           transform: rotateY(200deg) translateZ(430px); }
+          .carousel__face:nth-child(7) { 
+            background-image: url("https://images.pexels.com/photos/1415268/pexels-photo-1415268.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+           transform: rotateY(240deg) translateZ(430px); }
+          .carousel__face:nth-child(8) {
+            background-image: url("https://images.pexels.com/photos/135018/pexels-photo-135018.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+            transform: rotateY(280deg) translateZ(430px); }
+          .carousel__face:nth-child(9) {
+            background-image: url("https://images.pexels.com/photos/1175135/pexels-photo-1175135.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+            transform: rotateY(320deg) translateZ(430px); }
+          
+          
+          
+          @keyframes rotate360 {
+            from {
+              transform: rotateY(0deg);
+            }
+            to {
+              transform: rotateY(-360deg);
+            }
+          }
+    
+    @keyframes animatewords {
+        0%{
+            transform: translateY(0%);
+        }
+        25%{
+            transform: translateY(-100%);
+        }
+        50%{
+            transform: translateY(-200%);
+        }
+        75%{
+            transform: translateY(-300%);
+        }
+        100%{
+            transform: translateY(-400%);
+        }
+        
+    }
+    .RED-nav ul{
+        list-style: none;
+        background: rgb(32,31,32); 
+        padding: 0;
+        margin: 0;
+    }
+    .RED-nav li{
+        display: inline-block;
+        margin-top:-19px;
+    }
+    .RED-nav a{
+        text-decoration: none;
+        color: rgb(240,239,240);
+        width: 150px;
+        font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 20px;
+        padding: 20px;
+        display: block;
+        text-align: center;
+        position: relative;
+        transition: 1s;
+    }
+    
+    .RED-nav a::after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0.1em;
+        background-color: rgb(240,239,240);
+        opacity: 0;
+        transition: opacity 300ms, transform 300ms;
+        transform: translate3d(-140%,0,0);
+    }
+    .RED-nav a:hover::after,
+    .RED-nav a:focus::after{
+        opacity: 1;
+        transform: translate3d(0,0,0);
+    }
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+  }
+  
+  #video-background {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+  }
+</style>
+{% endblock %}
+{% block body_block %}
+<center>
+  <section class="video-background">
+    <video autoplay muted loop id="video-background">
+        <source src="{% static 'images/Earth-rotate.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</section>
+    <h1>Welcome to 
+        <span>
+            <span>RED</span>
+               {% if username %}<span>{{username|capfirst}}</span><span>OG</span><span>HOME</span><span>FLY!!</span>
+               {% else %}
+               <span>RED</span><span>OG</span>
+               {% endif %}
+        </span>
+    </h1>
+    <!-- <div class="container">
+        
+        <div class="carousel">
+          <div class="carousel__face"><span>This is something</span></div>
+          <div class="carousel__face"><span>Very special</span></div>
+          <div class="carousel__face"><span>Special is the key</span></div>
+          <div class="carousel__face"><span>For you</span></div>
+          <div class="carousel__face"><span>Just give it</span></div>
+          <div class="carousel__face"><span>A try</span></div>
+          <div class="carousel__face"><span>And see</span></div>
+          <div class="carousel__face"><span>How IT Works</span></div>
+          <div class="carousel__face"><span>Woow!!</span></div>
+        </div>
+      </div>
+    
+    </div> -->
+    
+</center>
+{% endblock %}

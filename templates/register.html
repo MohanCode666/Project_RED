@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>RED-SIGNUP</title>
+{% endblock %}
+{% block style %}
+<style>
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.signin-box{
+    position: relative;
+    width: 550px;
+    height:fit-content;
+    background: transparent;
+    border: 2px solid rgb(41, 39, 41);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(15px);
+}
+h2{
+    font-size: 2em;
+    color: rgb(190,47,6);
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    transition: .5s;
+    text-decoration:underline;
+    text-decoration-style: dotted;
+    animation: linemove 4s infinite ease-in;
+}
+
+h2:hover{
+    color: rgb(32,31,32);
+    
+    
+}
+.input-box{
+    width: 310px;
+    position: relative;
+    margin: 30px 0;
+}
+.input-box label{
+    position: relative;
+    top: 50%;
+    left: -120px;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    color: rgb(190,47,6);
+    pointer-events: none;
+    transition: .4s;
+    animation: moving 4s infinite linear;
+    
+
+}
+@keyframes moving {
+    0%{left:-120px;}
+    50%{left:95px;}
+    100%{left:-120px;}
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label{
+    top: -5px;
+}
+.input-box input{
+    width: 100%;
+    height: 50px;
+    border:none;
+    border-bottom: 2px solid rgb(32,31,32);
+    background: transparent;
+    outline: none;
+    font-size: 1em;
+    color: rgb(32,31,32);
+    padding: 0 35px 0 5px;
+}
+button{
+    width: 100%;
+    height: 40px;
+    background: white;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: rgb(32,31,32);
+    font-weight: 666;
+    transition: .6s;
+}
+button:hover{
+    background: rgb(32,31,32);
+    color: rgb(240,239,240);
+    
+}
+
+.RED-nav ul{
+    list-style: none;
+    background: rgb(32,31,32); 
+    padding: 0;
+    margin: 0;
+}
+.RED-nav li{
+    display: inline-block;
+}
+.RED-nav a{
+    text-decoration: none;
+    color: rgb(240,239,240);
+    width: 150px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    padding: 20px;
+    display: block;
+    text-align: center;
+    position: relative;
+    transition: 1s;
+}
+.RED-nav a::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1em;
+    background-color: rgb(240,239,240);
+    opacity: 0;
+    transition: opacity 300ms, transform 300ms;
+    transform: translate3d(-140%,0,0);
+}
+.RED-nav a:hover::after,
+.RED-nav a:focus::after{
+    opacity: 1;
+    transform: translate3d(0,0,0);
+}
+.login-link{
+    font-size: .9em;
+    color: wheat;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+.login-link p a{
+    color: wheat;
+    text-decoration: none;
+    font-weight: 600;
+}
+.login-link p a:hover{
+    text-decoration: underline;
+    color: rgb(32,31,32);
+}
+.messages {
+    list-style-type: none;
+    padding: 0;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid;
+    position: relative;
+    width:fit-content;
+    border-radius: 8px;
+}
+
+.success {
+    color: rgb(190,47,6);
+    background-color: rgb(41, 39, 41);
+    
+}
+
+.error {
+    color: red;
+    background-color: #0c0c0c;
+}
+
+.close-btn {
+    position: absolute;
+    top: -13px;
+    right: -12px;
+    background: rgb(240,239,240);
+    border: none;
+    border-radius:6px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #888;
+}
+
+.error-message {
+    color: rgb(228, 217, 217);
+    font-size: 14px;
+    margin-top: -10px;
+    position: relative;
+    width: fit-content;
+    margin-bottom: 10px;
+    padding: 10px;    
+}
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#video-background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+</style>
+{% endblock %}
+{% block body_block %}
+<center>
+    <section class="video-background">
+        <video autoplay muted loop id="video-background">
+            <source src="{% static 'images/SpaceSHIP.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+    <section>
+        
+        <div class="signin-box">
+            
+            <form method="POST" enctype="multipart/form-data" class="signin">
+                {% csrf_token %}
+                <h2>SignUp</h2>
+                <div class="input-box">
+                    {{uf.as_p}}
+                    
+                    {{pf.as_p}}
+                </div>
+                <button type="submit">Register</button>
+                <div class="login-link">
+                    <p>Already have an account! <a href="{% url 'sign' %}">Login</a></p>
+                </div>
+            </form>
+        </div>
+
+    </section>
+    
+</center>
+{% endblock %}

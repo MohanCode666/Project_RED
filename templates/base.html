@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    <title>RED</title>
+    {% endblock %}
+   {% block link %}
+   {% endblock %}
+    <link rel="icon"  href="{% static 'images/icon.png' %}" type="image/x-icon" >
+    
+<style>
+    
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        text-align: center;
+        font-family: sans-serif;
+        color: #fefefe;
+      }
+      .container {
+        position: relative;
+        width: 320px;
+        margin: 100px auto 0 auto;
+        perspective: 1000px;
+      }
+      
+      
+      
+    .RED-nav ul{
+        list-style: none;
+        background: rgb(32,31,32); 
+        padding: 0;
+        margin: 0;
+    }
+    .RED-nav li{
+        display: inline-block;
+        margin-top: -16px;
+        
+    }
+    .RED-nav a{
+        text-decoration: none;
+        color: rgb(240,239,240);
+        width: 150px;
+        font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 20px;
+        padding: 20px;
+        display: block;
+        text-align: center;
+        position: relative;
+        transition: 1s;
+    }
+    
+    .RED-nav a::after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0.1em;
+        background-color: rgb(240,239,240);
+        opacity: 0;
+        transition: opacity 300ms, transform 300ms;
+        transform: translate3d(-140%,0,0);
+    }
+    .RED-nav a:hover::after,
+    .RED-nav a:focus::after{
+        opacity: 1;
+        transform: translate3d(0,0,0);
+    }
+    .RED-nav a:hover{
+        color: rgb(190,47,6);
+    }
+    #jet{
+        padding: 20px;
+    }
+    .messages {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .message {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid;
+        position: relative;
+        width:fit-content;
+        border-radius: 8px;
+    }
+    
+    .success {
+        color: rgb(190,47,6);
+        background-color: rgb(41, 39, 41);
+        
+    }
+    
+    .error {
+        color: red;
+        background-color: #f7d1d1;
+        border-color: #e77777;
+    }
+    
+    .close-btn {
+        position: absolute;
+        top: -13px;
+        right: -12px;
+        background: rgb(240,239,240);
+        border: none;
+        border-radius:6px;
+        font-size: 16px;
+        cursor: pointer;
+        color: #888;
+    }
+    .video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+    }
+    
+    #video-background {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+</style>
+
+{% block style %}
+{% endblock %}
+</head>
+<body>
+    <div class="RED-nav">
+        <ul>
+            <i class="fa-solid fa-jet-fighter-up fa-bounce fa-2xl" style="color: #c52f06;" id="jet"></i>
+            <li><a href="{% url 'base' %}"><script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+                <lord-icon
+                    src="https://cdn.lordicon.com/etqbfrgp.json"
+                    trigger="hover"
+                    colors="outline:#131432,primary:#92140c,secondary:#f24c00,tertiary:#b26836,quaternary:#ebe6ef"
+                    style="width:50px;height:50px; margin-bottom: -16px;">
+                </lord-icon>HOME</a></li>
+            
+            <li><a href="{% url 'reg' %}"><script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+                <lord-icon
+                    src="https://cdn.lordicon.com/nocovwne.json"
+                    trigger="loop"
+                    colors="primary:#BB3525,secondary:#F0EFF0"
+                    state="hover-2"
+                    style="width:50px;height:50px; margin-bottom: -16px;">
+                </lord-icon>SIGNUP</a></li>
+            <li><a href=""><script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+                <lord-icon
+                    src="https://cdn.lordicon.com/ttioogfl.json"
+                    trigger="morph"
+                    colors="primary:#121331,secondary:#ebe6ef,tertiary:#bb3525,quaternary:#242424,quinary:#f9c9c0"
+                    style="width:50px;height:50px; margin-bottom:-16px;">
+                </lord-icon>ABOUT</a></li>
+            <li><a href=""><script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+                <lord-icon
+                    src="https://cdn.lordicon.com/myroguwc.json"
+                    trigger="hover"
+                    colors="outline:#121331,primary:#bb3525,secondary:#ebe6ef"
+                    style="width:50px;height:46px;margin-bottom:-16px; ">
+                </lord-icon>Care</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'user_logout' %}" ><i class="fa-solid fa-right-to-bracket" style="color: #c52f06;"></i>Logout</a></li>
+            <li><a href="{% url 'change_pass' %}" ><script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+                <lord-icon
+                    src="https://cdn.lordicon.com/alzqexpi.json"
+                    trigger="loop"
+                    colors="primary:#F0EFF0,secondary:#646e78,tertiary:#ffc738,quaternary:#242424,quinary:#ebe6ef"
+                    state="hover-2"
+                    style="width:40px;height:40px; margin-bottom:-10px;">
+                </lord-icon>ChangePassword</a></li>
+            {% else %}
+            <li><a href="{% url 'sign' %}"><script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+                <lord-icon
+                    src="https://cdn.lordicon.com/bnylezcu.json"
+                    trigger="loop"
+                    colors="primary:#ebe6ef,secondary:#f9c9c0,tertiary:#f24c00,quaternary:#3a3347,quinary:#201f20,senary:#b26836"
+                    style="width:50px;height:50px; margin-bottom:-16px;">
+                </lord-icon>LOGIN</a></li>
+            {% endif %}
+        </ul>
+        
+    </div>
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+        <li class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+            {{ message }}
+            <button class="close-btn" onclick="closeMessage(this)">&times;</button>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% block body_block %}
+    <section class="video-background">
+        <video autoplay muted loop id="video-background">
+            <source src="{% static 'images/earth.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+    
+    {% endblock %}
+    <script src="https://kit.fontawesome.com/c387fc945d.js" crossorigin="anonymous"></script>
+    <script>
+        function closeMessage(button) {
+            var messageElement = button.parentElement;
+            messageElement.style.opacity = "0";
+            setTimeout(function() {
+                messageElement.style.display = "none";
+            }, 600); // 600 milliseconds, adjust as needed
+        }
+        
+        // Automatically close messages after a timeout
+        document.addEventListener("DOMContentLoaded", function() {
+            var messages = document.querySelectorAll(".message");
+            messages.forEach(function(message) {
+                setTimeout(function() {
+                    message.style.opacity = "0";
+                    setTimeout(function() {
+                        message.style.display = "none";
+                    }, 600); // 600 milliseconds, adjust as needed
+                }, 5000); // 5000 milliseconds = 5 seconds, adjust as needed
+            });
+        });
+    </script>
+       
+</body>
+</html>

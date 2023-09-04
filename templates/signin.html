@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>RED-LOGIN</title>
+{% endblock %}
+{% block style %}
+<style>
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.login-box{
+    position: relative;
+    width: 400px;
+    height: 450px;
+    background: transparent;
+    border: 2px solid rgb(32,31,32);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(15px);
+}
+h2{
+    font-size: 2em;
+    color: rgb(190,47,6);
+    text-align: center;
+    transition: .5s;
+}
+h2:hover{
+    color: rgb(186,53,36);
+}
+.input-box{
+    width: 310px;
+    position: relative;
+    margin: 30px 0;
+    border-bottom: 2px solid rgb(32,31,32);
+}
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: rgb(190,47,6);
+    pointer-events: none;
+    transition: .4s;
+}
+.input-box input:focus~label,
+.input-box input:valid~label{
+    top: -5px;
+}
+.input-box input{
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: rgb(240,239,240);
+    padding: 0 35px 0 5px;
+}
+
+.remember-forgot{
+    margin: -15px 0 15px;
+    font-size: .9em;
+    color: rgb(240,239,240);
+    display: flex;
+    justify-content: space-between;
+
+}
+.remember-forgot label input{
+    margin-right: 3px;
+}
+.remember-forgot a{
+    color: rgb(240,239,240);
+    text-decoration: none;
+}
+.remember-forgot a:hover{
+    text-decoration: underline;
+}
+.input-box .icon{
+    position: absolute;
+    right: 8px;
+    color: rgb(190,47,6);
+    font-size: 1.2em;
+    line-height: 57px;
+}
+
+button{
+    width: 100%;
+    height: 40px;
+    background: wheat;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: rgb(32,31,32);
+    font-weight: 666;
+    transition: .6s;
+}
+button:hover{
+    background: rgb(32,31,32);
+    color: rgb(240,239,240);
+}
+.register-link{
+    font-size: .9em;
+    color: wheat;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+.register-link p a{
+    color: wheat;
+    text-decoration: none;
+    font-weight: 600;
+}
+.register-link p a:hover{
+    text-decoration: underline;
+    color: rgb(190,47,6);
+}
+@media (max-width: 360px) {
+    .login-box {
+
+        width: 100%;
+        height: 100vh;
+        border: none;
+        border-radius: 0;
+    }
+    .input-box {
+        width: 290px;
+    }
+}
+.RED-nav ul{
+    list-style: none;
+    background: rgb(32,31,32); 
+    padding: 0;
+    margin: 0;
+}
+.RED-nav li{
+    display: inline-block;
+}
+.RED-nav a{
+    text-decoration: none;
+    color: rgb(240,239,240);
+    width: 150px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    padding: 20px;
+    display: block;
+    text-align: center;
+    position: relative;
+    transition: 1s;
+}
+
+.RED-nav a::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1em;
+    background-color: rgb(240,239,240);
+    opacity: 0;
+    transition: opacity 300ms, transform 300ms;
+    transform: translate3d(-140%,0,0);
+}
+.RED-nav a:hover::after,
+.RED-nav a:focus::after{
+    opacity: 1;
+    transform: translate3d(0,0,0);
+}
+.messages {
+    list-style-type: none;
+    padding: 0;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid;
+    position: relative;
+    width:fit-content;
+    border-radius: 8px;
+}
+
+.success {
+    color: rgb(190,47,6);
+    background-color: rgb(41, 39, 41);
+    
+}
+
+.error {
+    color: red;
+    background-color: #f7d1d1;
+    border-color: #e77777;
+}
+
+.close-btn {
+    position: absolute;
+    top: -13px;
+    right: -12px;
+    background: rgb(240,239,240);
+    border: none;
+    border-radius:6px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #888;
+    width:20px;
+    height:23px;
+}
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#video-background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+</style>
+{% endblock %}
+
+{% block body_block %}
+    {% block content %}
+
+    <center>
+        <section class="video-background">
+            <video autoplay muted loop id="video-background">
+                <source src="{% static 'images/spacecraft.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        <section>
+            <div class="login-box">
+            <form method="POST">
+                {% csrf_token %}
+                <h2>Login</h2>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-user"></i></span>
+                    <input type="text" name="username" id="username" required="Enter USERNAME" autocomplete="off">
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-key"></i></span>
+                <input type="password" name="password" id="password" required="Enter PASSWORD" autocomplete="off" >
+                <label for="password">Password</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Remember me!</label>
+                    <a href="{% url 'forgot' %}">Forgot Password?</a>
+                </div>
+                <button type="submit">Login</button>
+                <div class="register-link">
+                    <p>Don't have an account! <a href="{% url 'reg' %}">Register</a></p>
+                </div>
+            </form>
+            </div>
+        </section>
+    </center>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+            {{message}}
+            <button class="close-btn" onclick="closeMessage(this)">&times;</button>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+    <script>
+        function closeMessage(button) {
+            var messageElement = button.parentElement;
+            messageElement.style.opacity = "0";
+            setTimeout(function() {
+                messageElement.style.display = "none";
+            }, 600); // 600 milliseconds, adjust as needed
+        }
+        
+        // Automatically close messages after a timeout
+        document.addEventListener("DOMContentLoaded", function() {
+            var messages = document.querySelectorAll(".message");
+            messages.forEach(function(message) {
+                setTimeout(function() {
+                    message.style.opacity = "0";
+                    setTimeout(function() {
+                        message.style.display = "none";
+                    }, 600); // 600 milliseconds, adjust as needed
+                }, 5000); // 5000 milliseconds = 5 seconds, adjust as needed
+            });
+        });
+    </script>
+    {% endblock %}
+{% endblock %}
